@@ -45,7 +45,7 @@ $body->nome = filter_var($body->nome, FILTER_SANITIZE_STRING);
 $body->email = filter_var($body->email, FILTER_VALIDATE_EMAIL);
 $body->msg = filter_var($body->msg, FILTER_SANITIZE_STRING);
 
-if(!empty($body->nome) || !empty($body->email) || !empty($body->msg)){
+if(empty($body->nome) || empty($body->email) || empty($body->msg)){
 
      reposta(400, false, "Favor Preencher todos os campos");
 }else{
@@ -55,4 +55,7 @@ if(!empty($body->nome) || !empty($body->email) || !empty($body->msg)){
     $stmt->bindParam(':nome', $body->nome, PDO::PARAM_STR);
     $stmt->bindParam(':email', $body->email, PDO::PARAM_STR);
     $stmt->bindParam(':msg', $body->msg, PDO::PARAM_STR);
+    $stmt->execute();
+
+    resposta(200, true, "Message sent successfully !!!");
 }
