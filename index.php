@@ -29,7 +29,7 @@ function resposta($codigo, $ok, $msg){
 //echo json_encode(["resposta" => "ok"]);
 
 
-
+if($_SERVER['REQUEST_METHOD']== 'POST'){
 
 $body = file_get_contents('php://input');
 
@@ -58,4 +58,5 @@ if(empty($body->nome) || empty($body->email) || empty($body->msg)){
     $stmt->execute();
 
     resposta(200, true, "Message sent successfully !!!");
+}
 }
