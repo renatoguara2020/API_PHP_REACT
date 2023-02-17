@@ -48,6 +48,11 @@ $body->msg = filter_var($body->msg, FILTER_SANITIZE_STRING);
 if(!empty($body->nome) || !empty($body->email) || !empty($body->msg)){
 
      reposta(400, false, "Favor Preencher todos os campos");
+}else{
 
+    $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, msg) VALUES (:nome, :email, :msg)");
 
+    $stmt->bindParam(':nome', $body->nome, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $body->email, PDO::PARAM_STR);
+    $stmt->bindParam(':msg', $body->msg, PDO::PARAM_STR);
 }
